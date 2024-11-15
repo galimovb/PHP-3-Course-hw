@@ -1,0 +1,47 @@
+{% block body %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .weekend {
+            background-color: #f9d6d6;
+        }
+    </style>
+
+    <h1>Таблица с выходными</h1>
+    <table>
+        <tr>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+        </tr>
+        <tr>
+            {# Добавляем пустые ячейки перед началом месяца #}
+            {% for i in 1..firstDayOfMonth-1 %}
+                <td></td>
+            {% endfor %}
+
+            {# Добавляем дни месяца #}
+            {% for day in days %}
+            <td class="{% if day.isWeekend %}weekend{% endif %}">{{ day.day }}</td>
+            {% if (loop.index + firstDayOfMonth - 1) % 7 == 0 %}
+        </tr>
+        <tr>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}
